@@ -1,0 +1,28 @@
+/* You can add global styles to this file, and also import other style files */
+
+* {
+    margin: 0;
+    padding: 0;
+    scrollbar-width: thin;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    min-height: 100%;
+    width: 100%;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+::-webkit-scrollbar-corner { background: rgba(0, 0, 0, 0.5) }
+
+*::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+.toolbar__spacer {
+    flex: 1 1 auto;
+}

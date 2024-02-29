@@ -1,0 +1,39 @@
+<div [ngClass]="{'main__mobile': isMobile, 'main__tablet': isTablet, 'main__desktop': isDesktop, 'main__4k-resolution': isDesktop4KResolution}">
+  <header>
+    <mat-toolbar role="toolbar">
+      <span>Lab4</span>
+      <span class="toolbar__spacer"></span>
+      <button mat-raised-button type="button" (click)="logout()">Logout</button>
+    </mat-toolbar>
+  </header>
+
+  <main>
+    <mat-grid-list *ngIf="isDesktop" class="container__panel" cols="2" rowHeight="2:1">
+      <mat-grid-tile colspan="1" rowspan="2">
+        <app-results-table/>
+      </mat-grid-tile>
+
+      <mat-grid-tile colspan="1" rowspan="1">
+        <app-point-graph />
+      </mat-grid-tile>
+
+      <mat-grid-tile colspan="1" rowspan="1">
+        <app-point-form />
+      </mat-grid-tile>
+    </mat-grid-list>
+
+    <mat-grid-list *ngIf="!isDesktop && (isMobile || isTablet)" class="container__panel" cols="1" rowHeight="1:1">
+      <mat-grid-tile colspan="1" rowspan="1">
+        <app-results-table/>
+      </mat-grid-tile>
+
+      <mat-grid-tile colspan="1" rowspan="1">
+        <app-point-graph />
+      </mat-grid-tile>
+
+      <mat-grid-tile colspan="1" rowspan="1">
+        <app-point-form />
+      </mat-grid-tile>
+    </mat-grid-list>
+  </main>
+</div>

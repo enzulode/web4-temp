@@ -1,0 +1,23 @@
+<header>
+  <mat-toolbar role="toolbar">
+    <span>Lab4</span>
+    <span class="toolbar__spacer"></span>
+    <span *ngIf="isDesktop" >Andreev V.A. P3219</span>
+    <span class="toolbar__spacer"></span>
+    <span *ngIf="isDesktop">Task id: 6764</span>
+    <span class="toolbar__spacer"></span>
+    <button *ngIf="isLoggedIn()" mat-raised-button type="button" (click)="redirectToPanel()" class="m-1">Panel</button>
+    <button mat-raised-button type="button" (click)="login()">Login</button>
+  </mat-toolbar>
+
+  <div class="lab-info__not-desktop"  *ngIf="!isDesktop && (isMobile || isTablet)">
+    <span>Andreev V.A. P3219</span>
+    <span>Task id: 6764</span>
+  </div>
+</header>
+
+<main>
+  <div class="cat-gif__container">
+    <img class="cat-gif" src="https://thecatapi.com/api/images/get?format=src&type=gif" alt="cat gif">
+  </div>
+</main>

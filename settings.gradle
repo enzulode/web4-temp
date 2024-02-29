@@ -1,0 +1,7 @@
+rootProject.name = 'lab4-web'
+
+//include 'authorization-server'    |
+//include 'authorization-api'       |   the old ones ;c
+//include 'point-service'           |
+
+include 'keycloak-resource-server'

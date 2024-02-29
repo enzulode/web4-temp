@@ -1,0 +1,24 @@
+.table-container__general {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.table-container__general::-webkit-scrollbar {
+    display: none;
+}
+
+.table-container__desktop {
+    height: 600px;
+    width: 660px;
+}
+
+.table-container__tablet {
+    height: 500px;
+    width: 600px;
+}
+
+.table-container__mobile {
+    height: 400px;
+    width: 500px;
+}
+

@@ -1,0 +1,51 @@
+<div class="container__point-form">
+  <form class="point-form" [formGroup]="formGroup" (submit)="onSubmit()">
+    <div [ngClass]="{'point-form-fields__mobile': isMobile, 'point-form-fields__tablet': isTablet, 'point-form-fields__desktop': isDesktop}">
+      <mat-form-field>
+        <mat-label>X coordinate</mat-label>
+        <mat-select formControlName="x">
+          <mat-option value="-3">-3</mat-option>
+          <mat-option value="-2">-2</mat-option>
+          <mat-option value="-1">-1</mat-option>
+          <mat-option value="0">0</mat-option>
+          <mat-option value="1">1</mat-option>
+          <mat-option value="2">2</mat-option>
+          <mat-option value="3">3</mat-option>
+          <mat-option value="4">4</mat-option>
+          <mat-option value="5">5</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <span></span>
+
+      <mat-form-field>
+        <mat-label>Y coordinate (-3; 3)</mat-label>
+        <input type="text" id="y" formControlName="y" placeholder="" matInput>
+      </mat-form-field>
+
+      <span></span>
+
+      <mat-form-field>
+        <mat-label>R</mat-label>
+        <mat-select formControlName="r">
+          <mat-option value="-3">-3</mat-option>
+          <mat-option value="-2">-2</mat-option>
+          <mat-option value="-1">-1</mat-option>
+          <mat-option value="0">0</mat-option>
+          <mat-option value="1">1</mat-option>
+          <mat-option value="2">2</mat-option>
+          <mat-option value="3">3</mat-option>
+          <mat-option value="4">4</mat-option>
+          <mat-option value="5">5</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="form__buttons">
+      <button mat-raised-button type="submit" [disabled]="isInvalid()">Check</button>
+      <span></span>
+      <button mat-raised-button type="button" (click)="clearAttempts()">Clear</button>
+    </div>
+  </form>
+</div>
+

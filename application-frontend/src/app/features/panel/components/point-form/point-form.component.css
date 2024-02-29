@@ -1,0 +1,30 @@
+span:not(:last-child) {
+    margin-right: 10px;
+}
+
+.point-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.point-form-fields__mobile {
+    max-height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.point-form-fields__tablet {
+    max-height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.point-form-fields__desktop {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}

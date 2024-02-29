@@ -1,0 +1,14 @@
+.lab-info__not-desktop {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cat-gif__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+
