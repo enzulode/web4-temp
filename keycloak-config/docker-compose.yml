@@ -1,6 +1,10 @@
 volumes:
   keycloak-db-volume: {}
 
+networks:
+  security-net:
+    driver: bridge
+
 services:
   keycloak-db:
     container_name: keycloak-db
@@ -34,4 +38,5 @@ services:
     networks:
       - security-net
     ports:
+      - "8080:8080"
       - "9000:9000"
