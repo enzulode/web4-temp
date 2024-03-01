@@ -42,12 +42,12 @@ services:
 
   reverse-proxy:
     container_name: reverse-proxy
-    image: bitnami/nginx:latest
-    volumes:
-      - reverse-proxy-volume:/bitnami/nginx
-      - ./application-frontend/dist/application-frontend/browser:/app
-      - ./conf/reverse-proxy.conf:/opt/bitnami/nginx/conf/server_blocks/reverse-proxy.conf
+    depends_on:
+      - attempt-resource-server
+    build:
+      context: application-frontend
+      dockerfile: Dockerfile
     networks:
       - reverse-proxy-net
     ports:
-      - "8080:8080"
+      - "80:80"
