@@ -9,9 +9,6 @@ networks:
   backend-net:
     driver: bridge
 
-  security-net:
-    driver: bridge
-
 services:
   points-db:
     container_name: points-db
