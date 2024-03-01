@@ -1,8 +1,4 @@
 volumes:
-  lab4-web-dev-db-volume: {}
-  point-service-dev-db-volume: {}
-
-  keycloak-db-volume: {}
   point-db-volume: {}
   reverse-proxy-volume: {}
 
@@ -17,40 +13,6 @@ networks:
     driver: bridge
 
 services:
-#  keycloak-db:
-#    container_name: keycloak-db
-#    image: bitnami/postgresql:15.2.0
-#    environment:
-#      POSTGRESQL_DATABASE: keycloak-db
-#      POSTGRESQL_USERNAME: keycloak-user
-#      POSTGRESQL_PASSWORD: keycloak-password
-#    volumes:
-#      - keycloak-db-volume:/bitnami/postgresql
-#    networks:
-#      - security-net
-#    ports:
-#      - "5430:5432"
-#
-#  keycloak-idp:
-#    container_name: keycloak-idp
-#    depends_on:
-#      - keycloak-db
-#    image: bitnami/keycloak:23.0.4
-#    environment:
-#      KEYCLOAK_ADMIN: enzulode
-#      KEYCLOAK_ADMIN_PASSWORD: dev
-#      KEYCLOAK_HTTP_PORT: 9000
-#      KEYCLOAK_DATABASE_HOST: keycloak-db
-#      KEYCLOAK_DATABASE_PORT: 5432
-#      KEYCLOAK_DATABASE_NAME: keycloak-db
-#      KEYCLOAK_DATABASE_SCHEMA: public
-#      KEYCLOAK_DATABASE_USER: keycloak-user
-#      KEYCLOAK_DATABASE_PASSWORD: keycloak-password
-#    networks:
-#      - security-net
-#    ports:
-#      - "9000:9000"
-
   points-db:
     container_name: points-db
     image: bitnami/postgresql:15.2.0
@@ -65,11 +27,9 @@ services:
     ports:
       - "5432:5432"
 
-  attempt-resource:
+  attempt-resource-server:
     container_name: attempt-resource
     depends_on:
-      - keycloak-db
-      - keycloak-idp
       - points-db
     build:
       context: .
@@ -84,9 +44,10 @@ services:
     container_name: reverse-proxy
     image: bitnami/nginx:latest
     volumes:
+      - reverse-proxy-volume:/bitnami/nginx
       - ./application-frontend/dist/application-frontend/browser:/app
       - ./conf/reverse-proxy.conf:/opt/bitnami/nginx/conf/server_blocks/reverse-proxy.conf
     networks:
       - reverse-proxy-net
     ports:
-      - "8888:8080"
+      - "8080:8080"
