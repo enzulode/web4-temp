@@ -1,15 +1,12 @@
 # Build stage
 FROM node:20.10-alpine as builder
-WORKDIR /app-source
-COPY . /app-source
-#COPY src ./
-#COPY angular.json package.json package-lock.json ./
-#COPY tsconfig.app.json tsconfig.json ./
-RUN npm install -g @angular/cli
+WORKDIR /app
+COPY package.json ./
 RUN npm install
-RUN ng build
+COPY .. .
+RUN npm run build
 
 # Serve stage
 FROM nginx:1.25.4-alpine
-COPY nginx/reverse-proxy.conf /etc/nginx/nginx.conf
-COPY --from=builder /app-source/dist/application-frontend/browser /app
+COPY --from=builder /app/dist/application-frontend /usr/share/nginx/html
+COPY nginx/reverse-proxy.conf /etc/nginx/conf.d/default.conf
