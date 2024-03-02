@@ -4,13 +4,14 @@ import { PointDto } from '../dto/point.dto'
 import { AttemptDto } from '../dto/attempt.dto'
 import { Observable } from 'rxjs'
 import { AuthService } from './auth.service'
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AttemptService {
 
-  static API_BASE_URL: string = 'http://localhost:8090/api/v1/attempt'
+  static API_BASE_URL: string = `${environment.attemptApiBase}/attempt`
   private readonly AUTH_HEADER: string = 'Bearer ' + this.authService.token()
 
   constructor(
