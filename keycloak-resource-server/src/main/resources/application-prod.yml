@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: point-service
+    name: point-service-prod
 
   flyway:
     locations:
@@ -11,9 +11,9 @@ spring:
       - classpath:db/{vendor}/dev
 
   datasource:
-    url: jdbc:postgresql://attempt-db-prod:5432/attempt-db-prod
-    username: prod-user
-    password: prod-password
+    url: jdbc:${DB_DRIVER}://${DB_HOST}:${DB_PORT}/${DB_NAME}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
     hikari:
       connection-timeout: 30000 # specifies the max time driver will wait for connection from cp
