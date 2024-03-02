@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core'
 import { OAuthService } from 'angular-oauth2-oidc'
-import { oauthConfig } from '../../oauth.config'
 import { BehaviorSubject, ReplaySubject } from 'rxjs'
 import { Router } from '@angular/router'
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,7 @@ export class AuthService {
       private readonly router: Router,
       private readonly oauthService: OAuthService
   ) {
-    this.oauthService.configure(oauthConfig)
+    this.oauthService.configure(environment.oauthConfig)
 
     this.oauthService.events.subscribe(_ => {
       this.isAuthenticatedSubject$.next(this.oauthService.hasValidAccessToken())
