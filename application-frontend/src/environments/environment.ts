@@ -26,7 +26,7 @@ const ATTEMPT_API_VERSION: string = 'v1'
  */
 const PRODUCTION_MODE: boolean = true
 
-const oauthDevConfig: AuthConfig = {
+const oauthProdConfig: AuthConfig = {
   preserveRequestedRoute: true,
   logoutUrl: `${IDENTITY_PROVIDER_ISS_URI}/protocol/openid-connect/logout`,
   issuer: IDENTITY_PROVIDER_ISS_URI,
@@ -44,6 +44,6 @@ const oauthDevConfig: AuthConfig = {
 
 export const environment = {
   production: PRODUCTION_MODE,
-  oauthConfig: oauthDevConfig,
+  oauthConfig: oauthProdConfig,
   attemptApiBase: `${ATTEMPT_API_PROTOCOL}://${ATTEMPT_API_HOST}:${ATTEMPT_API_PORT}/api/${ATTEMPT_API_VERSION}`
 };
