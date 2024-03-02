@@ -9,11 +9,12 @@ import { AuthService } from "./core/services/auth.service";
 import {provideAnimations} from "@angular/platform-browser/animations";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {provideToastr} from "ngx-toastr";
+import {environment} from '../environments/environment';
 
 export const appConfig: ApplicationConfig = {
 
   providers: [
-      provideRouter(routes, withDebugTracing()),
+      environment.production ? provideRouter(routes) : provideRouter(routes, withDebugTracing()),
       provideHttpClient(),
       importProvidersFrom(NgbModule),
       provideOAuthClient(),
