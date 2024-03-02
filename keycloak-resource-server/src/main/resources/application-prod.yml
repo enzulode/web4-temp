@@ -11,9 +11,9 @@ spring:
       - classpath:db/{vendor}/dev
 
   datasource:
-    url: jdbc:postgresql://points-db:5432/points-db
-    username: dev-user
-    password: dev-password
+    url: jdbc:postgresql://attempt-db-prod:5432/attempt-db-prod
+    username: prod-user
+    password: prod-password
     driver-class-name: org.postgresql.Driver
     hikari:
       connection-timeout: 30000 # specifies the max time driver will wait for connection from cp
