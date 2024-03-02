@@ -20,6 +20,6 @@ const oauthDevConfig: AuthConfig = {
 
 export const environment = {
   production: false,
-  attemptDevApiBase: 'http://localhost:8090/api/v1',
+  attemptApiBase: 'http://localhost:8090/api/v1',
   oauthConfig: oauthDevConfig
 };
