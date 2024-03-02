@@ -1,0 +1,32 @@
+server:
+  port: 8090
+
+spring:
+  application:
+    name: point-service
+
+  flyway:
+    locations:
+      - classpath:db/{vendor}/common
+      - classpath:db/{vendor}/dev
+
+  datasource:
+    url: jdbc:postgresql://points-db:5432/points-db
+    username: dev-user
+    password: dev-password
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      connection-timeout: 30000 # specifies the max time driver will wait for connection from cp
+      maximum-pool-size: 10 # max cp size
+      minimum-idle: 10 # minimal amount of idling connections
+      initialization-fail-timeout: 1 # time required to establish initial connection
+      leak-detection-threshold: 0 # time allowed for connection to be outside the cp
+      pool-name: hikari-pool-auth-service # cp name
+      register-mbeans: true # enabling jmx beans for monitoring purposes
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${IDP_PROTOCOL}://${IDP_HOST}:${IDP_PORT}/realms/${IDP_KEYCLOAK_REALM}
+          jwk-set-uri: ${IDP_PROTOCOL}://${IDP_HOST}:${IDP_PORT}/realms/${IDP_KEYCLOAK_REALM}/protocol/openid-connect/certs
