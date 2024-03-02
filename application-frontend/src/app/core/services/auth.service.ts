@@ -28,13 +28,13 @@ export class AuthService {
     this.oauthService.setupAutomaticSilentRefresh()
   }
 
-  public async runInitialLoginSequence(): Promise<void> {
+  public runInitialLoginSequence() {
     try {
-      await this.oauthService.loadDiscoveryDocument()
-      await this.oauthService.tryLoginCodeFlow()
+      this.oauthService.loadDiscoveryDocument()
+      this.oauthService.tryLoginCodeFlow()
       this.isDoneLoadingSubject$.next(true)
     } catch {
-      return this.isDoneLoadingSubject$.next(true)
+      this.isDoneLoadingSubject$.next(true)
     }
   }
 
