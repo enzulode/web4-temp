@@ -28,5 +28,5 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:9000/realms/lab4-web
-          jwk-set-uri: http://localhost:9000/realms/lab4-web/protocol/openid-connect/certs
+          issuer-uri: ${IDP_PROTOCOL}://${IDP_HOST}:${IDP_PORT}/realms/${IDP_KEYCLOAK_REALM}
+          jwk-set-uri: ${IDP_PROTOCOL}://${IDP_HOST}:${IDP_PORT}/realms/${IDP_KEYCLOAK_REALM}/protocol/openid-connect/certs
