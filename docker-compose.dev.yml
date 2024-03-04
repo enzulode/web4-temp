@@ -1,0 +1,60 @@
+volumes:
+  attempt-db-dev-volume: {}
+
+networks:
+  backend-net:
+    driver: bridge
+
+  frontend-proxy-net:
+    driver: bridge
+
+services:
+  attempt-db-dev:
+    container_name: attempt-db-dev
+    image: bitnami/postgresql:15.2.0
+    environment:
+      POSTGRESQL_DATABASE: attempt-db-dev
+      POSTGRESQL_USERNAME: dev-user
+      POSTGRESQL_PASSWORD: dev-password
+    volumes:
+      - attempt-db-dev-volume:/bitnami/postgresql
+    networks:
+      - backend-net
+    ports:
+      - '5432:5432'
+
+  attempt-service-dev:
+    container_name: attempt-service-dev
+    depends_on:
+      - attempt-db-dev
+    environment:
+      DB_DRIVER: postgresql
+      DB_HOST: attempt-db-dev
+      DB_PORT: 5432
+      DB_NAME: attempt-db-dev
+      DB_USER: dev-user
+      DB_PASSWORD: dev-password
+      IDP_PROTOCOL: http
+      IDP_HOST: localhost
+      IDP_PORT: 9000
+      IDP_KEYCLOAK_REALM: lab4-web
+    build:
+      context: keycloak-resource-server
+      dockerfile: Dockerfile.dev
+    networks:
+      - backend-net
+      - frontend-proxy-net
+    ports:
+      - '8090:8090'
+
+  frontend-proxy-dev:
+    container_name: frontend-proxy-dev
+    depends_on:
+      - attempt-service-dev
+    build:
+      context: application-frontend
+      dockerfile: Dockerfile.dev
+    networks:
+      - frontend-proxy-net
+    ports:
+      - '8888:8888'
