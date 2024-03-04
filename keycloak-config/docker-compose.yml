@@ -15,10 +15,6 @@ services:
       POSTGRESQL_PASSWORD: keycloak-password
     volumes:
       - keycloak-db-volume:/bitnami/postgresql
-    networks:
-      - security-net
-    ports:
-      - "5430:5432"
 
   keycloak-idp:
     container_name: keycloak-idp
@@ -35,7 +31,5 @@ services:
       KEYCLOAK_DATABASE_SCHEMA: public
       KEYCLOAK_DATABASE_USER: keycloak-user
       KEYCLOAK_DATABASE_PASSWORD: keycloak-password
-    networks:
-      - security-net
     ports:
-      - "9000:9000"
+      - '9000:9000'
