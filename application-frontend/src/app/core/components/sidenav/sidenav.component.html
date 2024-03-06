@@ -1,0 +1,33 @@
+<mat-drawer-container class="sidenav-container" hasBackdrop>
+  <mat-drawer class="sidenav-drawer" #drawer>
+    <div> <!-- Drawer header -->
+      <nav-header>Menu</nav-header>
+    </div>
+
+    <div> <!-- Drawer (public) elements -->
+      <nav-item (click)="homeRedirect()">Home</nav-item>
+    </div>
+    <div *ngIf="isAuthenticated()"> <!-- Drawer (private) elements -->
+      <nav-item (click)="panelRedirect()">Hit panel</nav-item>
+    </div>
+
+    <div> <!-- Session management controls -->
+      <nav-icon-item iconName="login" *ngIf="!isAuthenticated(); else loggedIn" (click)="login()">Login</nav-icon-item>
+      <ng-template #loggedIn>
+        <nav-icon-item iconName="logout" (click)="logout()">Logout</nav-icon-item>
+      </ng-template>
+    </div>
+  </mat-drawer>
+
+  <mat-drawer-content> <!-- Page content -->
+    <header>
+      <mat-toolbar role="toolbar">
+        <button mat-icon-button aria-label="Menu button" (click)="drawer.toggle()">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <span>Lab4</span>
+      </mat-toolbar>
+    </header>
+    <ng-content/>
+  </mat-drawer-content>
+</mat-drawer-container>
