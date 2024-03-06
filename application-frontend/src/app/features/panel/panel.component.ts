@@ -74,7 +74,7 @@ export class PanelComponent implements OnInit {
 
     this.attemptService.fetchAll()
       .subscribe((attempts: AttemptDto[]): void => {
-        this.attemptsStorage.setData(attempts)
+        this.attemptsStorage.setData(attempts.reverse())
       })
 
     this.errorService.getError$()
