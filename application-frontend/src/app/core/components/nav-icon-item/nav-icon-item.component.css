@@ -1,0 +1,27 @@
+.nav-icon-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 300px;
+    margin: 20px;
+
+    background-color: white;
+    cursor: pointer;
+}
+
+.nav-icon-item-content {
+    padding: 20px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    font-size: 20px;
+    font-weight: normal;
+    color: black;
+}
+
+.nav-icon-item:hover {
+    background-color: #ced1d6;
+}
