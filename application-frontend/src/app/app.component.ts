@@ -1,16 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {ActivatedRoute, RouterOutlet} from '@angular/router';
-import {HttpClient, HttpClientModule} from "@angular/common/http";
-import {KeycloakAngularModule} from "keycloak-angular";
-import {AuthService} from "./core/services/auth.service";
+import { Component } from '@angular/core'
+import { CommonModule } from '@angular/common'
+import { RouterOutlet } from '@angular/router'
+import { SidenavComponent } from './core/components/sidenav/sidenav.component'
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
-      CommonModule,
-      RouterOutlet
+    CommonModule,
+    RouterOutlet,
+    SidenavComponent
   ],
   templateUrl: './app.component.html'
 })
