@@ -1,10 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {MatButton} from "@angular/material/button";
-import {MatToolbar} from "@angular/material/toolbar";
-import {AuthService} from "../../core/services/auth.service";
-import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
-import {NgIf, NgOptimizedImage} from "@angular/common";
-import {Router} from "@angular/router";
+import { Component, OnInit } from '@angular/core'
+import { MatButton } from '@angular/material/button'
+import { MatToolbar } from '@angular/material/toolbar'
+import { AuthService } from '../../core/services/auth.service'
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout'
+import { NgIf } from '@angular/common'
+import { Router } from '@angular/router'
+import { SidenavComponent } from '../../core/components/sidenav/sidenav.component'
 
 @Component({
 	selector: 'app-home',
@@ -13,7 +14,7 @@ import {Router} from "@angular/router";
     MatButton,
     MatToolbar,
     NgIf,
-    NgOptimizedImage
+    SidenavComponent
   ],
 	templateUrl: './home.component.html',
   styleUrl: './home.component.css'
