@@ -1,10 +1,6 @@
 volumes:
   keycloak-db-volume: {}
 
-networks:
-  security-net:
-    driver: bridge
-
 services:
   keycloak-db:
     container_name: keycloak-db
