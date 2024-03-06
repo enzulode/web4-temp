@@ -1,10 +1,11 @@
-import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core'
-import {PointDto} from '../../../../core/dto/point.dto'
-import {CurrentFormDataService} from '../../../../core/services/current-form-data.service'
-import {AttemptService} from '../../../../core/services/attempt.service'
-import {AttemptDto} from '../../../../core/dto/attempt.dto'
-import {AttemptsStorageSharedDataService} from '../../../../core/services/attempts-storage-shared-data.service'
-import {CurrentErrorService} from '../../../../core/services/current-error.service'
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core'
+import { PointDto } from '../../../../core/dto/point.dto'
+import { CurrentFormDataService } from '../../../../core/services/current-form-data.service'
+import { AttemptService } from '../../../../core/services/attempt.service'
+import { AttemptDto } from '../../../../core/dto/attempt.dto'
+import { AttemptsStorageSharedDataService } from '../../../../core/services/attempts-storage-shared-data.service'
+import { CurrentErrorService } from '../../../../core/services/current-error.service'
+import { ClientsideValidationService } from '../../../../core/services/clientside-validation.service'
 
 @Component({
   selector: 'app-point-graph',
@@ -27,7 +28,8 @@ export class PointGraphComponent implements AfterViewInit {
       private readonly pointSharedDataService: CurrentFormDataService,
       private readonly attemptService: AttemptService,
       private readonly attemptsStorage: AttemptsStorageSharedDataService,
-      private readonly errorService: CurrentErrorService
+      private readonly errorService: CurrentErrorService,
+      private readonly validationService: ClientsideValidationService
   ) {}
 
   ngAfterViewInit(): void {
@@ -101,6 +103,23 @@ export class PointGraphComponent implements AfterViewInit {
       const graphR: number = this.currentFormData.r
 
       if (this.currentFormData.r > 0) {
+        // validate the correctness of the data being used in the current attempt
+        if (this.validationService.checkX(graphX)) {
+          this.errorService.clearError()
+        } else {
+          console.log('X: ', graphX)
+          this.errorService.setError({ errored: true, message: 'X coord is invalid' })
+          return
+        }
+
+        if (this.validationService.checkY(graphY)) {
+          this.errorService.clearError()
+        } else {
+          console.log('Y: ', graphY)
+          this.errorService.setError({ errored: true, message: 'Y coord is invalid' })
+          return
+        }
+
         this.attemptService.newAttempt({x: graphX, y: graphY, r: graphR})
           .subscribe({
             next: (res: AttemptDto): void => {
