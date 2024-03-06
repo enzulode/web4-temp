@@ -21,7 +21,8 @@ export class AttemptsStorageSharedDataService {
   }
 
   appendData(attempt: AttemptDto): void {
-    this.storedAttempts.push(attempt)
+    this.storedAttempts = [attempt, ...this.storedAttempts]
+    // this.storedAttempts.push(attempt)
     this.data$.next(this.storedAttempts)
   }
 
