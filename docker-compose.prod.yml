@@ -1,0 +1,60 @@
+volumes:
+  attempt-db-prod-volume: {}
+
+networks:
+  backend-net:
+    driver: bridge
+
+  frontend-proxy-net:
+    driver: bridge
+
+services:
+  attempt-db-prod:
+    container_name: attempt-db-prod
+    image: bitnami/postgresql:15.2.0
+    environment:
+      POSTGRESQL_DATABASE: attempt-db-prod
+      POSTGRESQL_USERNAME: prod-user
+      POSTGRESQL_PASSWORD: prod-password
+    volumes:
+      - attempt-db-prod-volume:/bitnami/postgresql
+    networks:
+      - backend-net
+    ports:
+      - '5432:5432'
+
+  attempt-service-prod:
+    container_name: attempt-service-prod
+    depends_on:
+      - attempt-db-prod
+    environment:
+      DB_DRIVER: postgresql
+      DB_HOST: attempt-db-prod
+      DB_PORT: 5432
+      DB_NAME: attempt-db-prod
+      DB_USER: prod-user
+      DB_PASSWORD: prod-password
+      IDP_PROTOCOL: http
+      IDP_HOST: 0.0.0.0 # FIXME
+      IDP_PORT: 9000
+      IDP_KEYCLOAK_REALM: prod-realm-name # FIXME
+    build:
+      context: keycloak-resource-server
+      dockerfile: Dockerfile.prod
+    networks:
+      - backend-net
+      - frontend-proxy-net
+    ports:
+      - '8090:8090'
+
+  frontend-proxy-prod:
+    container_name: frontend-proxy-prod
+    depends_on:
+      - attempt-service-prod
+    build:
+      context: application-frontend
+      dockerfile: Dockerfile.prod
+    networks:
+      - frontend-proxy-net
+    ports:
+      - '80:80'
