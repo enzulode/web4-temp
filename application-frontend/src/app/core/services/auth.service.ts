@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core'
-import { OAuthService } from 'angular-oauth2-oidc'
+import { OAuthService, OAuthSuccessEvent } from 'angular-oauth2-oidc'
 import { BehaviorSubject, ReplaySubject } from 'rxjs'
 import { Router } from '@angular/router'
-import {environment} from '../../../environments/environment';
+import { environment } from '../../../environments/environment'
+import { from } from 'rxjs'
+import { CurrentErrorService } from './current-error.service'
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +19,8 @@ export class AuthService {
 
   constructor(
       private readonly router: Router,
-      private readonly oauthService: OAuthService
+      private readonly oauthService: OAuthService,
+      private readonly errorService: CurrentErrorService
   ) {
     this.oauthService.configure(environment.oauthConfig)
 
@@ -28,14 +31,20 @@ export class AuthService {
     this.oauthService.setupAutomaticSilentRefresh()
   }
 
-  public runInitialLoginSequence() {
-    try {
-      this.oauthService.loadDiscoveryDocument()
-      this.oauthService.tryLoginCodeFlow()
-      this.isDoneLoadingSubject$.next(true)
-    } catch {
-      this.isDoneLoadingSubject$.next(true)
-    }
+  public runInitialLoginSequence(): void {
+    from(this.oauthService.loadDiscoveryDocument())
+      .subscribe({
+        next: (e: OAuthSuccessEvent): void => {
+          this.errorService.clearError()
+          from(this.oauthService.tryLoginCodeFlow())
+            .subscribe(() => {
+              this.isDoneLoadingSubject$.next(true)
+            })
+        },
+        error: (): void => {
+          this.errorService.setError({errored: true, message: 'Authentication server is down. Try again later :c'})
+        }
+      })
   }
 
   login(targetUrl?: string) { this.oauthService.initCodeFlow(targetUrl || this.router.url) }
@@ -43,9 +52,9 @@ export class AuthService {
   logout() { this.oauthService.logOut() }
   token(): string { return this.oauthService.getAccessToken() }
 
-  // TODO: make the following PIECE OF SHIT less useless than now...
   hasValidToken(): boolean { return this.oauthService.hasValidAccessToken() }
 
+  // TODO: make the following PIECE OF SHIT less useless than now...
   public hasRole(role: string): boolean {
     let claims: any = this.oauthService.getIdentityClaims();
     if (claims && claims.groups) {
