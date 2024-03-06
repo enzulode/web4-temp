@@ -1,17 +1,18 @@
-import {Component, OnInit} from '@angular/core'
-import {MatSelectModule} from '@angular/material/select'
-import {MatInputModule} from '@angular/material/input'
-import {MatFormFieldModule} from '@angular/material/form-field'
-import {MatButtonModule} from '@angular/material/button'
-import {AbstractControl, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms'
-import {AttemptService} from '../../../../core/services/attempt.service'
-import {PointDto} from '../../../../core/dto/point.dto'
-import {AttemptDto} from '../../../../core/dto/attempt.dto'
-import {CurrentFormDataService} from '../../../../core/services/current-form-data.service'
-import {AttemptsStorageSharedDataService} from '../../../../core/services/attempts-storage-shared-data.service'
-import {NgClass, NgIf} from '@angular/common';
-import {ToastrService} from 'ngx-toastr';
-import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
+import { Component, OnInit } from '@angular/core'
+import { MatSelectModule } from '@angular/material/select'
+import { MatInputModule } from '@angular/material/input'
+import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatButtonModule } from '@angular/material/button'
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms'
+import { AttemptService } from '../../../../core/services/attempt.service'
+import { PointDto } from '../../../../core/dto/point.dto'
+import { AttemptDto } from '../../../../core/dto/attempt.dto'
+import { CurrentFormDataService } from '../../../../core/services/current-form-data.service'
+import { AttemptsStorageSharedDataService } from '../../../../core/services/attempts-storage-shared-data.service'
+import { NgClass, NgIf } from '@angular/common'
+import { ToastrService } from 'ngx-toastr'
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout'
+import { customYValueValidator } from '../../../../core/util/custom-y-value-validator'
 
 @Component({
   selector: 'app-point-form',
@@ -38,7 +39,7 @@ export class PointFormComponent implements OnInit {
   ) {
     this.formGroup = this.formBuilder.group({
       x: new FormControl<number>(0, [Validators.required, Validators.min(-3), Validators.max(5)]),
-      y: new FormControl<string>('', [Validators.required, Validators.pattern('[-+]?[0-9]*\.?[0-9]+'), PointFormComponent.customYValueValidator]),
+      y: new FormControl<string>('', [Validators.required, Validators.pattern('[-+]?[0-9]*\.?[0-9]+'), customYValueValidator]),
       r: new FormControl<number>(-3, [Validators.required, Validators.min(1), Validators.max(5)])
     })
 
@@ -63,22 +64,6 @@ export class PointFormComponent implements OnInit {
       .subscribe(result => {
         this.isDesktop = result.matches
       })
-  }
-
-  /**
-   * Custom Y coordinate property validator.
-   *
-   * @param control an abstract string-typed control to be validated
-   */
-  static customYValueValidator(control: AbstractControl<string>) {
-    let currentY: number = parseFloat(control.value)
-
-    // check that current y value is out of bound
-    if (currentY >= 3 || currentY <= -3) {
-      return {invalidYPropertyValue: true}
-    }
-
-    return null
   }
 
   /**
