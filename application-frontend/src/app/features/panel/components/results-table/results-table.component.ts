@@ -1,9 +1,9 @@
-import {Component, OnInit, ViewChild} from '@angular/core'
-import {MatTable, MatTableModule} from '@angular/material/table'
-import {AttemptDto} from '../../../../core/dto/attempt.dto'
-import {AttemptsStorageSharedDataService} from '../../../../core/services/attempts-storage-shared-data.service'
-import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
-import {NgClass} from "@angular/common";
+import { Component, OnInit, ViewChild } from '@angular/core'
+import { MatTable, MatTableModule } from '@angular/material/table'
+import { AttemptDto } from '../../../../core/dto/attempt.dto'
+import { AttemptsStorageSharedDataService } from '../../../../core/services/attempts-storage-shared-data.service'
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout'
+import { NgClass } from '@angular/common'
 
 @Component({
   selector: 'app-results-table',
@@ -17,7 +17,7 @@ export class ResultsTableComponent implements OnInit {
   displayedColumns: string[] = ['x', 'y', 'r', 'hit']
   datasource: AttemptDto[] = []
 
-  @ViewChild(MatTable) table: MatTable<AttemptDto> | undefined
+  @ViewChild(MatTable) table!: MatTable<AttemptDto>
 
   isMobile: boolean = false
   isTablet: boolean = false
@@ -53,12 +53,12 @@ export class ResultsTableComponent implements OnInit {
   }
 
   addElements(attempts: AttemptDto[]): void {
-    this.datasource.push(...attempts.reverse())
-    this.table?.renderRows()
+    this.datasource.push(...attempts)
+    this.table.renderRows()
   }
 
   removeAllElements(): void {
     this.datasource = []
-    this.table?.renderRows()
+    this.table.renderRows()
   }
 }
