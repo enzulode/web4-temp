@@ -9,7 +9,7 @@ import { MatIconModule } from '@angular/material/icon'
 import { NavItemComponent } from '../nav-item/nav-item.component'
 import { NavHeaderComponent } from '../nav-header/nav-header.component'
 import { NavIconItemComponent } from '../nav-icon-item/nav-icon-item.component'
-import { Router } from '@angular/router'
+import { RouterLink } from '@angular/router'
 import { AuthService } from '../../services/auth.service'
 
 @Component({
@@ -26,7 +26,8 @@ import { AuthService } from '../../services/auth.service'
     MatButtonModule,
     NavItemComponent,
     NavHeaderComponent,
-    NavIconItemComponent
+    NavIconItemComponent,
+    RouterLink
   ],
   templateUrl: './sidenav.component.html',
   styleUrl: './sidenav.component.css'
@@ -34,7 +35,6 @@ import { AuthService } from '../../services/auth.service'
 export class SidenavComponent {
 
   constructor(
-      private readonly router: Router,
       private readonly authService: AuthService
   ) {}
 
@@ -48,13 +48,5 @@ export class SidenavComponent {
 
   logout(): void {
     this.authService.logout()
-  }
-
-  homeRedirect(): void {
-    this.router.navigate(['/home'])
-  }
-
-  panelRedirect(): void {
-    this.router.navigate(['/panel'])
   }
 }

@@ -5,10 +5,10 @@
     </div>
 
     <div> <!-- Drawer (public) elements -->
-      <nav-item (click)="homeRedirect()">Home</nav-item>
+      <nav-item [routerLink]="['/home']" (click)="drawer.close()">Home</nav-item>
     </div>
     <div *ngIf="isAuthenticated()"> <!-- Drawer (private) elements -->
-      <nav-item (click)="panelRedirect()">Hit panel</nav-item>
+      <nav-item [routerLink]="['/panel']" (click)="drawer.close()">Hit panel</nav-item>
     </div>
 
     <div> <!-- Session management controls -->
