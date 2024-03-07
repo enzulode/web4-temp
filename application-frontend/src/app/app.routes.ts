@@ -1,7 +1,8 @@
-import { Routes } from '@angular/router';
-import { HomeComponent } from "./features/home/home.component";
-import { authGuard } from "./core/guards/authGuard";
-import { PanelComponent } from "./features/panel/panel.component";
+import { Routes } from '@angular/router'
+import { HomeComponent } from './features/home/home.component'
+import { authGuard } from "./core/guards/authGuard"
+import { PanelComponent } from './features/panel/panel.component'
+import { InfoComponent } from './features/info/info.component'
 
 export const routes: Routes = [
   {
@@ -10,13 +11,19 @@ export const routes: Routes = [
     redirectTo: 'home'
   },
   {
-    title: 'L4-WEB Andreev V.A.',
+    title: 'Homepage',
     path: 'home',
     pathMatch: 'full',
     component: HomeComponent
   },
   {
-    title: 'Point hit panel',
+    title: 'Information',
+    path: 'info',
+    pathMatch: 'full',
+    component: InfoComponent
+  },
+  {
+    title: 'Control panel',
     path: 'panel',
     canActivate: [ authGuard ],
     pathMatch: 'full',
@@ -27,4 +34,3 @@ export const routes: Routes = [
     redirectTo: 'home'
   }
 ];
-
