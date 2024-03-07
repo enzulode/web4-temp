@@ -18,7 +18,11 @@
 }
 
 .table-container__mobile {
-    height: 400px;
-    width: 500px;
+    height: 340px;
+    width: 300px;
+}
+
+table-container__mobile table {
+    max-width: 280px;
 }
 
