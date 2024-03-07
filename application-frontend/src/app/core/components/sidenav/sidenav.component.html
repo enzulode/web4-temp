@@ -6,6 +6,7 @@
 
     <div> <!-- Drawer (public) elements -->
       <nav-item [routerLink]="['/home']" (click)="drawer.close()">Home</nav-item>
+      <nav-item [routerLink]="['/info']" (click)="drawer.close()">Info</nav-item>
     </div>
     <div *ngIf="isAuthenticated()"> <!-- Drawer (private) elements -->
       <nav-item [routerLink]="['/panel']" (click)="drawer.close()">Hit panel</nav-item>
